@@ -789,7 +789,147 @@ header{
     }
 
 }
+/* =========================
+   ALL ANIME PAGE
+========================= */
 
+.all-anime-page{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:5500;
+    background:#0b0d12;
+    color:white;
+    overflow-y:auto;
+    padding:20px 15px 90px;
+}
+
+.all-anime-header{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    max-width:1000px;
+    margin:0 auto 25px;
+}
+
+.all-anime-header h1{
+    font-size:26px;
+    margin:0;
+}
+
+.all-anime-back{
+    width:42px;
+    height:42px;
+    border:0;
+    border-radius:50%;
+    background:#1b1f29;
+    color:white;
+    font-size:23px;
+    cursor:pointer;
+}
+
+.all-anime-tabs{
+    display:flex;
+    gap:10px;
+    max-width:1000px;
+    margin:0 auto 25px;
+    overflow-x:auto;
+}
+
+.all-tab{
+    border:1px solid #303542;
+    background:#151821;
+    color:#aaa;
+    padding:10px 22px;
+    border-radius:25px;
+    font-weight:bold;
+    cursor:pointer;
+    white-space:nowrap;
+}
+
+.all-tab.active{
+    background:#ff2d55;
+    border-color:#ff2d55;
+    color:white;
+}
+
+.all-anime-grid{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fill,minmax(150px,1fr));
+    gap:15px;
+    max-width:1000px;
+    margin:auto;
+}
+
+.all-anime-card{
+    background:#151821;
+    border:1px solid #292d38;
+    border-radius:14px;
+    padding:9px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.all-anime-card:hover{
+    transform:translateY(-4px);
+    border-color:#ff2d55;
+}
+
+.all-anime-poster{
+    height:210px;
+    border-radius:10px;
+    background:
+        linear-gradient(
+            135deg,
+            #202532,
+            #11141b
+        );
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.all-anime-card strong{
+    display:block;
+    font-size:14px;
+}
+
+.all-anime-card small{
+    display:block;
+    color:#999;
+    font-size:12px;
+    margin-top:5px;
+}
+
+@media(max-width:600px){
+
+    .all-anime-page{
+        padding:15px 10px 85px;
+    }
+
+    .all-anime-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+        gap:11px;
+    }
+
+    .all-anime-poster{
+        height:190px;
+    }
+
+    .all-anime-card{
+        padding:7px;
+    }
+
+    .all-tab{
+        padding:9px 17px;
+    }
+    }
     
 </style>
 </head>
@@ -1746,5 +1886,101 @@ document.querySelectorAll(".language-btn").forEach(function(button){
 
 </script>
 
+    
+<!-- ALL ANIME PAGE -->
+<div id="allAnimePage" class="all-anime-page">
+
+    <div class="all-anime-header">
+
+        <button class="all-anime-back"
+                onclick="closeAllAnime()">
+            ←
+        </button>
+
+        <h1>All Anime</h1>
+
+    </div>
+
+    <!-- SERIES / MOVIES -->
+    <div class="all-anime-tabs">
+
+        <button class="all-tab active"
+                onclick="filterAllAnime('all', this)">
+            ALL
+        </button>
+
+        <button class="all-tab"
+                onclick="filterAllAnime('series', this)">
+            SERIES
+        </button>
+
+        <button class="all-tab"
+                onclick="filterAllAnime('movie', this)">
+            MOVIES
+        </button>
+
+    </div>
+
+    <!-- ALL CARDS -->
+    <div id="allAnimeGrid" class="all-anime-grid">
+
+        <div class="all-anime-card"
+             data-type="series"
+             onclick="openAnime('Anime 01')">
+
+            <div class="all-anime-poster">
+                ANIME 01
+            </div>
+
+            <strong>Anime 01</strong>
+            <small>Series • Episode 12</small>
+
+        </div>
+
+
+        <div class="all-anime-card"
+             data-type="series"
+             onclick="openAnime('Anime 02')">
+
+            <div class="all-anime-poster">
+                ANIME 02
+            </div>
+
+            <strong>Anime 02</strong>
+            <small>Series • Episode 08</small>
+
+        </div>
+
+
+        <div class="all-anime-card"
+             data-type="series"
+             onclick="openAnime('Anime 03')">
+
+            <div class="all-anime-poster">
+                ANIME 03
+            </div>
+
+            <strong>Anime 03</strong>
+            <small>Series • Episode 05</small>
+
+        </div>
+
+
+        <div class="all-anime-card"
+             data-type="movie"
+             onclick="openAnime('Anime Movie 01')">
+
+            <div class="all-anime-poster">
+                MOVIE 01
+            </div>
+
+            <strong>Anime Movie 01</strong>
+            <small>Movie • HD</small>
+
+        </div>
+
+    </div>
+
+</div>
 </body>
       </html>
