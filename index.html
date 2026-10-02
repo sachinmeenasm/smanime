@@ -570,17 +570,55 @@ header{
 }
 
 .episodes{
-    display:grid;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.season{
+    background:#151821;
+    border:1px solid #292d38;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.season-header{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border:0;
+    background:#171a22;
+    color:white;
+    padding:15px;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    text-align:left;
+}
+
+.season-header span:last-child{
+    color:#ff2d55;
+    font-size:18px;
+}
+
+.season-episodes{
+    display:none;
+    padding:10px;
     grid-template-columns:repeat(auto-fill,minmax(110px,1fr));
     gap:10px;
 }
 
+.season.open .season-episodes{
+    display:grid;
+}
+
 .episode-btn{
-    background:#171a22;
-    border:1px solid #292d38;
+    background:#20242e;
+    border:1px solid #303542;
     color:white;
-    padding:12px 8px;
-    border-radius:10px;
+    padding:11px 8px;
+    border-radius:9px;
     cursor:pointer;
 }
 
@@ -1070,47 +1108,123 @@ function openAnime(name){
     const episodes =
         document.getElementById("episodes");
 
-
     title.textContent = name;
 
     meta.textContent =
-        "⭐ 9.0 • 12 Episodes • HD";
+        "⭐ 9.0 • 24 Episodes • HD";
 
     description.textContent =
         "Watch " + name +
-        " with all available episodes. " +
-        "Select an episode below to start watching.";
-
+        " with all available episodes. Choose a season below.";
 
     episodes.innerHTML = "";
 
+    const seasons = [
+        {
+            name:"Season 1",
+            count:12
+        },
+        {
+            name:"Season 2",
+            count:12
+        }
+    ];
 
-    for(let i = 1; i <= 12; i++){
+    seasons.forEach(function(season, seasonIndex){
 
-        const button =
+        const seasonBox =
+            document.createElement("div");
+
+        seasonBox.className = "season";
+
+        const header =
             document.createElement("button");
 
-        button.className =
-            "episode-btn";
+        header.className = "season-header";
 
-        button.textContent =
-            "Episode " + i;
+        header.innerHTML =
+            `<span>📁 ${season.name}</span>
+             <span>＋</span>`;
 
-        button.onclick = function(){
+        const episodeList =
+            document.createElement("div");
 
-            watchEpisode(i);
+        episodeList.className =
+            "season-episodes";
+
+        for(let i = 1; i <= season.count; i++){
+
+            const ep =
+                document.createElement("button");
+
+            ep.className =
+                "episode-btn";
+
+            ep.textContent =
+                "Episode " + i;
+
+            ep.onclick = function(){
+
+                watchEpisode(
+                    seasonIndex + 1,
+                    i
+                );
+
+            };
+
+            episodeList.appendChild(ep);
+        }
+
+        header.onclick = function(){
+
+            const isOpen =
+                seasonBox.classList.contains("open");
+
+            document
+                .querySelectorAll(".season")
+                .forEach(function(item){
+
+                    item.classList.remove("open");
+
+                    const icon =
+                        item.querySelector(
+                            ".season-header span:last-child"
+                        );
+
+                    if(icon){
+                        icon.textContent = "＋";
+                    }
+
+                });
+
+            if(!isOpen){
+
+                seasonBox.classList.add("open");
+
+                header
+                    .querySelector(
+                        "span:last-child"
+                    )
+                    .textContent = "−";
+            }
 
         };
 
-        episodes.appendChild(button);
+        seasonBox.appendChild(header);
 
-    }
+        seasonBox.appendChild(
+            episodeList
+        );
 
+        episodes.appendChild(
+            seasonBox
+        );
+
+    });
 
     details.style.display = "block";
 
     document.body.style.overflow = "hidden";
-
 }
 
 function closeAnimeDetails(){
@@ -1123,11 +1237,12 @@ function closeAnimeDetails(){
 }
 
 
-function watchEpisode(number){
+function watchEpisode(season, episode){
 
     alert(
-        "▶ Playing Episode " +
-        number +
+        "▶ Playing " +
+        "Season " + season +
+        " • Episode " + episode +
         "\n\nVideo player will be connected next."
     );
 
