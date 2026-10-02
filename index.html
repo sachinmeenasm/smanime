@@ -301,6 +301,74 @@ header{
         height:240px;
     }
 }
+
+/* TRENDING */
+.trending-row{
+    display:flex;
+    gap:14px;
+    overflow-x:auto;
+    scrollbar-width:none;
+    padding-bottom:5px;
+}
+
+.trending-row::-webkit-scrollbar{
+    display:none;
+}
+
+.trending-card{
+    min-width:270px;
+    height:190px;
+    border-radius:16px;
+    overflow:hidden;
+    position:relative;
+    background:#171a22;
+    border:1px solid #292d38;
+}
+
+.trending-card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.trending-card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        transparent 25%,
+        rgba(0,0,0,.9)
+    );
+}
+
+.rank{
+    position:absolute;
+    top:10px;
+    left:10px;
+    z-index:2;
+    background:#ff2d55;
+    padding:5px 9px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.trending-info{
+    position:absolute;
+    bottom:12px;
+    left:13px;
+    z-index:2;
+}
+
+.trending-info h3{
+    font-size:17px;
+    margin-bottom:5px;
+}
+
+.trending-info p{
+    color:#ccc;
+    font-size:11px;
+}
+
 </style>
 </head>
 
@@ -343,6 +411,53 @@ header{
     </div>
 </section>
 
+<!-- TRENDING ANIME -->
+<section class="section">
+
+    <div class="section-title">
+        <h2>🔥 Trending Anime</h2>
+        <span class="see-all">See All</span>
+    </div>
+
+    <div class="trending-row">
+
+        <div class="trending-card">
+            <div class="rank">01</div>
+
+            <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=700&q=80">
+
+            <div class="trending-info">
+                <h3>Anime Legend</h3>
+                <p>⭐ 9.2 • 24 Episodes</p>
+            </div>
+        </div>
+
+        <div class="trending-card">
+            <div class="rank">02</div>
+
+            <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=700&q=80">
+
+            <div class="trending-info">
+                <h3>Shadow World</h3>
+                <p>⭐ 9.0 • 12 Episodes</p>
+            </div>
+        </div>
+
+        <div class="trending-card">
+            <div class="rank">03</div>
+
+            <img src="https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?auto=format&fit=crop&w=700&q=80">
+
+            <div class="trending-info">
+                <h3>Dark Adventure</h3>
+                <p>⭐ 8.8 • 18 Episodes</p>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+    
 <!-- GENRES -->
 <section class="section">
 
