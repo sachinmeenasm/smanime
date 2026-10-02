@@ -489,6 +489,116 @@ header{
     font-size:16px;
 }
 
+/* =========================
+   ANIME DETAILS
+========================= */
+
+.anime-details{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:5000;
+    background:#0b0d12;
+    overflow-y:auto;
+}
+
+.details-backdrop{
+    height:330px;
+    position:relative;
+    background:
+        linear-gradient(to bottom,rgba(0,0,0,.1),#0b0d12),
+        url("https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1200&q=80")
+        center/cover;
+}
+
+.details-close{
+    position:absolute;
+    top:18px;
+    left:18px;
+    width:42px;
+    height:42px;
+    border:0;
+    border-radius:50%;
+    background:rgba(0,0,0,.7);
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.details-content{
+    padding:0 20px 90px;
+    max-width:900px;
+    margin:-55px auto 0;
+    position:relative;
+}
+
+.details-title{
+    font-size:30px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.details-meta{
+    color:#aaa;
+    font-size:13px;
+    margin-bottom:15px;
+}
+
+.details-description{
+    color:#ccc;
+    line-height:1.6;
+    font-size:14px;
+    margin-bottom:20px;
+}
+
+.watch-now-btn{
+    display:inline-block;
+    border:0;
+    background:#ff2d55;
+    color:white;
+    padding:12px 22px;
+    border-radius:25px;
+    font-weight:bold;
+    font-size:14px;
+    cursor:pointer;
+    margin-bottom:25px;
+}
+
+.episode-title{
+    font-size:20px;
+    margin-bottom:12px;
+}
+
+.episodes{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(110px,1fr));
+    gap:10px;
+}
+
+.episode-btn{
+    background:#171a22;
+    border:1px solid #292d38;
+    color:white;
+    padding:12px 8px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.episode-btn:hover{
+    background:#ff2d55;
+}
+
+@media(max-width:600px){
+
+    .details-backdrop{
+        height:300px;
+    }
+
+    .details-title{
+        font-size:25px;
+    }
+
+    }
     
 </style>
 </head>
@@ -873,7 +983,52 @@ header{
     </div>
 
 </nav>
+<!-- ANIME DETAILS -->
 
+<div id="animeDetails" class="anime-details">
+
+    <div class="details-backdrop">
+
+        <button class="details-close"
+        onclick="closeAnimeDetails()">
+            ✕
+        </button>
+
+    </div>
+
+    <div class="details-content">
+
+        <h1 id="detailsTitle" class="details-title">
+            Anime
+        </h1>
+
+        <div id="detailsMeta" class="details-meta">
+            ⭐ 9.0 • 12 Episodes
+        </div>
+
+        <p id="detailsDescription"
+        class="details-description">
+            Watch this amazing anime and enjoy all episodes.
+        </p>
+
+        <button
+        class="watch-now-btn"
+        onclick="watchEpisode(1)">
+            ▶ Watch Now
+        </button>
+
+        <h2 class="episode-title">
+            Episodes
+        </h2>
+
+        <div id="episodes"
+        class="episodes">
+
+        </div>
+
+    </div>
+
+</div>
 <script>
 
 function toggleSearch(){
@@ -900,10 +1055,83 @@ function startWatching(){
 /* OPEN ANIME */
 function openAnime(name){
 
-    alert("Opening: " + name);
+    const details =
+        document.getElementById("animeDetails");
+
+    const title =
+        document.getElementById("detailsTitle");
+
+    const meta =
+        document.getElementById("detailsMeta");
+
+    const description =
+        document.getElementById("detailsDescription");
+
+    const episodes =
+        document.getElementById("episodes");
+
+
+    title.textContent = name;
+
+    meta.textContent =
+        "⭐ 9.0 • 12 Episodes • HD";
+
+    description.textContent =
+        "Watch " + name +
+        " with all available episodes. " +
+        "Select an episode below to start watching.";
+
+
+    episodes.innerHTML = "";
+
+
+    for(let i = 1; i <= 12; i++){
+
+        const button =
+            document.createElement("button");
+
+        button.className =
+            "episode-btn";
+
+        button.textContent =
+            "Episode " + i;
+
+        button.onclick = function(){
+
+            watchEpisode(i);
+
+        };
+
+        episodes.appendChild(button);
+
+    }
+
+
+    details.style.display = "block";
+
+    document.body.style.overflow = "hidden";
 
 }
 
+function closeAnimeDetails(){
+
+    document.getElementById("animeDetails")
+        .style.display = "none";
+
+    document.body.style.overflow = "";
+
+}
+
+
+function watchEpisode(number){
+
+    alert(
+        "▶ Playing Episode " +
+        number +
+        "\n\nVideo player will be connected next."
+    );
+
+}
 
 /* HOME */
 function goHome(){
