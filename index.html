@@ -435,6 +435,61 @@ header{
     color:white;
     cursor:pointer;
 }
+
+/* SEARCH RESULTS */
+
+.search-results{
+    display:none;
+    padding:15px;
+    background:#0b0d12;
+}
+
+.search-results-title{
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+
+.search-result-card{
+    display:flex;
+    gap:12px;
+    background:#151821;
+    border:1px solid #292d38;
+    border-radius:14px;
+    padding:10px;
+    margin-bottom:10px;
+    cursor:pointer;
+}
+
+.search-result-card img{
+    width:75px;
+    height:95px;
+    object-fit:cover;
+    border-radius:9px;
+}
+
+.search-result-info{
+    padding:5px 0;
+}
+
+.search-result-info strong{
+    font-size:16px;
+}
+
+.search-result-info small{
+    display:block;
+    color:#999;
+    margin-top:8px;
+}
+
+.no-result{
+    text-align:center;
+    padding:30px 10px;
+    color:#999;
+    font-size:16px;
+}
+
+    
 </style>
 </head>
 
@@ -463,6 +518,10 @@ header{
     >
 
 </div>
+
+<!-- SEARCH RESULTS -->
+<div id="searchResults" class="search-results"></div>
+    
 <!-- TOP MENU -->
 <div class="top-menu">
     <button onclick="showSection('home')">🏠 Home</button>
@@ -924,9 +983,52 @@ function searchAnime(){
         .toLowerCase()
         .trim();
 
-    const cards = document.querySelectorAll(".card");
+    const resultsBox =
+        document.getElementById("searchResults");
+
+    const cards =
+        document.querySelectorAll(".card");
+
+    /* Search खाली है */
+    if(input === ""){
+
+        resultsBox.style.display = "none";
+        resultsBox.innerHTML = "";
+
+        cards.forEach(function(card){
+            card.style.display = "";
+        });
+
+        document.querySelectorAll(".section").forEach(function(section){
+            section.style.display = "";
+        });
+
+        document.querySelector(".hero").style.display = "";
+        document.querySelector(".top-menu").style.display = "";
+
+        return;
+    }
+
+
+    /* Search करते समय normal sections छुपाएँ */
+    document.querySelectorAll(".section").forEach(function(section){
+        section.style.display = "none";
+    });
+
+    document.querySelector(".hero").style.display = "none";
+    document.querySelector(".top-menu").style.display = "none";
+
+
+    resultsBox.style.display = "block";
+
+    resultsBox.innerHTML = `
+        <div class="search-results-title">
+            🔍 Search Results
+        </div>
+    `;
 
     let found = 0;
+
 
     cards.forEach(function(card){
 
@@ -940,25 +1042,75 @@ function searchAnime(){
             .toLowerCase()
             .trim();
 
-        if(input === ""){
 
-            card.style.display = "";
+        if(name.includes(input)){
 
-        }
-        else if(name.includes(input)){
-
-            card.style.display = "";
             found++;
 
-        }
-        else{
+            const image =
+                card.querySelector(".poster");
 
-            card.style.display = "none";
+            const title =
+                titleElement.textContent.trim();
+
+            const subtitle =
+                card.querySelector(".card-sub");
+
+            const subText =
+                subtitle
+                ? subtitle.textContent.trim()
+                : "Anime";
+
+
+            const resultCard =
+                document.createElement("div");
+
+            resultCard.className =
+                "search-result-card";
+
+
+            resultCard.innerHTML = `
+                <img src="${image ? image.src : ''}">
+                
+                <div class="search-result-info">
+                    <strong>${title}</strong>
+                    <small>${subText}</small>
+                </div>
+            `;
+
+
+            resultCard.onclick = function(){
+
+                openAnime(title);
+
+            };
+
+
+            resultsBox.appendChild(resultCard);
 
         }
 
     });
 
+
+    /* कोई result नहीं */
+    if(found === 0){
+
+        resultsBox.innerHTML = `
+            <div class="search-results-title">
+                🔍 Search Results
+            </div>
+
+            <div class="no-result">
+                😔 Anime नहीं मिला
+                <br>
+                <small>दूसरा anime name search करें</small>
+            </div>
+        `;
+
+    }
+
+}
 
     /* SEARCH MESSAGE */
 
