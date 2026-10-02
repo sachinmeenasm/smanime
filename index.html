@@ -829,17 +829,24 @@ function toggleSearch(){
     }
 }
 
+
+/* WATCH NOW */
 function startWatching(){
 
-    alert("Watch system will be connected in the next step.");
+    alert("Anime player will open soon.");
+
 }
 
+
+/* OPEN ANIME */
 function openAnime(name){
 
-    alert(name + " will open in the anime player.");
+    alert("Opening: " + name);
 
 }
 
+
+/* HOME */
 function goHome(){
 
     window.scrollTo({
@@ -848,28 +855,46 @@ function goHome(){
     });
 
 }
+
+
+/* TOP MENU */
 function showSection(section){
+
     if(section === "home"){
+
         window.scrollTo({
             top:0,
             behavior:"smooth"
         });
+
     }
 
     if(section === "series"){
-        alert("Series section will be connected next.");
+
+        document.querySelector(".section").scrollIntoView({
+            behavior:"smooth"
+        });
+
     }
 
     if(section === "movies"){
-        alert("Movies section will be connected next.");
+
+        alert("Movies section coming soon.");
+
     }
 
     if(section === "schedule"){
+
         document.querySelector(".schedule").scrollIntoView({
             behavior:"smooth"
         });
+
     }
+
 }
+
+
+/* CONTINUE WATCHING */
 function continueAnime(name){
 
     alert("Continue watching: " + name);
@@ -877,6 +902,7 @@ function continueAnime(name){
 }
 
 
+/* REMOVE FAVORITE */
 function removeFavorite(event,name){
 
     event.stopPropagation();
@@ -884,6 +910,11 @@ function removeFavorite(event,name){
     alert(name + " removed from My List.");
 
 }
+
+
+/* =========================
+   ADVANCED SEARCH SYSTEM
+========================= */
 
 function searchAnime(){
 
@@ -895,21 +926,32 @@ function searchAnime(){
 
     const cards = document.querySelectorAll(".card");
 
+    let found = 0;
+
     cards.forEach(function(card){
 
-        const title = card
-            .querySelector(".card-title");
+        const titleElement =
+            card.querySelector(".card-title");
 
-        if(!title) return;
+        if(!titleElement) return;
 
-        const name = title.textContent
-            .toLowerCase();
+        const name =
+            titleElement.textContent
+            .toLowerCase()
+            .trim();
 
-        if(name.includes(input)){
+        if(input === ""){
 
             card.style.display = "";
 
-        }else{
+        }
+        else if(name.includes(input)){
+
+            card.style.display = "";
+            found++;
+
+        }
+        else{
 
             card.style.display = "none";
 
@@ -917,7 +959,63 @@ function searchAnime(){
 
     });
 
+
+    /* SEARCH MESSAGE */
+
+    let message =
+        document.getElementById("searchMessage");
+
+
+    if(!message){
+
+        message =
+            document.createElement("div");
+
+        message.id = "searchMessage";
+
+        message.style.textAlign = "center";
+        message.style.padding = "25px";
+        message.style.color = "#aaa";
+        message.style.fontSize = "15px";
+
+        document
+            .getElementById("searchBox")
+            .after(message);
+
+    }
+
+
+    if(input !== "" && found === 0){
+
+        message.innerHTML =
+            "😔 Anime नहीं मिला<br>" +
+            "<small>Try another anime name</small>";
+
+    }
+    else{
+
+        message.innerHTML = "";
+
+    }
+
 }
+
+
+/* SEARCH ENTER KEY */
+
+document
+.getElementById("searchInput")
+.addEventListener("keydown", function(event){
+
+    if(event.key === "Enter"){
+
+        searchAnime();
+
+    }
+
+});
+
+
 
 </script>
 
