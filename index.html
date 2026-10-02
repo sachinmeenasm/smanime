@@ -1112,45 +1112,7 @@ function searchAnime(){
 
 }
 
-    /* SEARCH MESSAGE */
-
-    let message =
-        document.getElementById("searchMessage");
-
-
-    if(!message){
-
-        message =
-            document.createElement("div");
-
-        message.id = "searchMessage";
-
-        message.style.textAlign = "center";
-        message.style.padding = "25px";
-        message.style.color = "#aaa";
-        message.style.fontSize = "15px";
-
-        document
-            .getElementById("searchBox")
-            .after(message);
-
-    }
-
-
-    if(input !== "" && found === 0){
-
-        message.innerHTML =
-            "😔 Anime नहीं मिला<br>" +
-            "<small>Try another anime name</small>";
-
-    }
-    else{
-
-        message.innerHTML = "";
-
-    }
-
-}
+    
 
 
 /* SEARCH ENTER KEY */
