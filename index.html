@@ -637,7 +637,145 @@ header{
     }
 
     }
-    
+
+   /* LANGUAGE + NETWORK */
+
+.language-network{
+    padding:25px 20px 10px;
+    background:#0b0d12;
+}
+
+.language-title{
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:18px;
+}
+
+.language-list{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+    max-width:700px;
+    margin:auto;
+}
+
+.language-btn{
+    background:#151821;
+    border:1px solid #292d38;
+    border-radius:12px;
+    color:white;
+    padding:10px 5px;
+    text-align:center;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.language-btn strong{
+    display:block;
+    font-size:14px;
+}
+
+.language-btn small{
+    display:block;
+    color:#999;
+    margin-top:4px;
+    font-size:12px;
+}
+
+.language-btn.active{
+    background:#32145c;
+    border-color:#a855f7;
+    color:#d8a8ff;
+}
+
+.network-title{
+    text-align:center;
+    margin:30px 0 18px;
+    font-size:20px;
+    font-weight:bold;
+    text-decoration:underline;
+}
+
+.network-list{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    max-width:700px;
+    margin:auto;
+}
+
+.network-card{
+    height:105px;
+    background:#151821;
+    border-radius:16px;
+    border:1px solid #222631;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:10px;
+    cursor:pointer;
+    overflow:hidden;
+    transition:.2s;
+}
+
+.network-card:hover{
+    transform:translateY(-3px);
+    border-color:#a855f7;
+}
+
+.network-card img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    border-radius:12px;
+}
+
+.network-name{
+    font-size:20px;
+    font-weight:bold;
+    text-align:center;
+}
+
+/* Mobile */
+@media(max-width:600px){
+
+    .language-network{
+        padding:22px 15px 8px;
+    }
+
+    .language-list{
+        grid-template-columns:repeat(4,1fr);
+        gap:6px;
+    }
+
+    .language-btn{
+        padding:9px 3px;
+    }
+
+    .language-btn strong{
+        font-size:12px;
+    }
+
+    .language-btn small{
+        font-size:10px;
+    }
+
+    .network-list{
+        grid-template-columns:repeat(4,1fr);
+        gap:10px;
+    }
+
+    .network-card{
+        height:85px;
+        padding:7px;
+        border-radius:12px;
+    }
+
+    .network-name{
+        font-size:13px;
+    }
+    } 
 </style>
 </head>
 
@@ -677,6 +815,125 @@ header{
     <button onclick="showSection('movies')">🎬 Movies</button>
     <button onclick="showSection('schedule')">📅 Schedule</button>
 </div>
+
+
+<!-- LANGUAGE + NETWORK -->
+
+<section class="language-network">
+
+    <div class="language-title">
+        🌐 Select Language
+    </div>
+
+    <div class="language-list">
+
+        <button class="language-btn active">
+            <strong>Hindi</strong>
+            <small>हिन्दी</small>
+        </button>
+
+        <button class="language-btn">
+            <strong>Tamil</strong>
+            <small>தமிழ்</small>
+        </button>
+
+        <button class="language-btn">
+            <strong>Telugu</strong>
+            <small>తెలుగు</small>
+        </button>
+
+        <button class="language-btn">
+            <strong>Bengali</strong>
+            <small>বাংলা</small>
+        </button>
+
+        <button class="language-btn">
+            <strong>Malayalam</strong>
+            <small>മലയാളം</small>
+        </button>
+
+        <button class="language-btn">
+            <strong>Kannada</strong>
+            <small>ಕನ್ನಡ</small>
+        </button>
+
+        <button class="language-btn">
+            <strong>English</strong>
+            <small>English</small>
+        </button>
+
+        <button class="language-btn">
+            <strong>Japanese</strong>
+            <small>日本語</small>
+        </button>
+
+        <button class="language-btn">
+            <strong>Korean</strong>
+            <small>한국어</small>
+        </button>
+
+    </div>
+
+
+    <div class="network-title">
+        NETWORK
+    </div>
+
+
+    <div class="network-list">
+
+        <div class="network-card">
+            <img
+            src="https://cdn.simpleicons.org/sony"
+            alt="Sony">
+        </div>
+
+        <div class="network-card">
+            <img
+            src="https://cdn.simpleicons.org/netflix"
+            alt="Netflix">
+        </div>
+
+        <div class="network-card">
+            <img
+            src="https://cdn.simpleicons.org/primevideo"
+            alt="Prime Video">
+        </div>
+
+        <div class="network-card">
+            <img
+            src="https://cdn.simpleicons.org/crunchyroll"
+            alt="Crunchyroll">
+        </div>
+
+        <div class="network-card">
+            <img
+            src="https://cdn.simpleicons.org/mxplayer"
+            alt="MX Player">
+        </div>
+
+        <div class="network-card">
+            <div class="network-name">
+                Jio<br>Hotstar
+            </div>
+        </div>
+
+        <div class="network-card">
+            <div class="network-name">
+                MUSE<br>INDIA
+            </div>
+        </div>
+
+        <div class="network-card">
+            <div class="network-name">
+                ANIME<br>TIMES
+            </div>
+        </div>
+
+    </div>
+
+</section>
+    
 <!-- HERO -->
 <section class="hero">
     <div class="hero-content">
@@ -1472,7 +1729,21 @@ document
 
 });
 
+document.querySelectorAll(".language-btn").forEach(function(button){
 
+    button.addEventListener("click",function(){
+
+        document
+            .querySelectorAll(".language-btn")
+            .forEach(function(btn){
+                btn.classList.remove("active");
+            });
+
+        this.classList.add("active");
+
+    });
+
+});
 
 </script>
 
