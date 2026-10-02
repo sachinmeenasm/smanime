@@ -435,7 +435,6 @@ header{
     color:white;
     cursor:pointer;
 }
-    
 </style>
 </head>
 
@@ -455,7 +454,14 @@ header{
 
 <!-- SEARCH -->
 <div class="search-box" id="searchBox">
-    <input type="text" placeholder="Search anime..." id="searchInput">
+
+    <input
+        type="text"
+        placeholder="🔍 Search anime..."
+        id="searchInput"
+        oninput="searchAnime()"
+    >
+
 </div>
 <!-- TOP MENU -->
 <div class="top-menu">
@@ -879,6 +885,39 @@ function removeFavorite(event,name){
 
 }
 
+function searchAnime(){
+
+    const input = document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach(function(card){
+
+        const title = card
+            .querySelector(".card-title");
+
+        if(!title) return;
+
+        const name = title.textContent
+            .toLowerCase();
+
+        if(name.includes(input)){
+
+            card.style.display = "";
+
+        }else{
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
 
 </script>
 
