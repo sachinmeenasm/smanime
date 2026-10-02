@@ -369,6 +369,73 @@ header{
     font-size:11px;
 }
 
+/* CONTINUE WATCHING */
+
+.continue-card{
+    min-width:270px;
+    background:#151821;
+    border-radius:14px;
+    overflow:hidden;
+    border:1px solid #292d38;
+    cursor:pointer;
+}
+
+.continue-card img{
+    width:100%;
+    height:145px;
+    object-fit:cover;
+    display:block;
+}
+
+.continue-info{
+    padding:10px;
+}
+
+.continue-info strong{
+    display:block;
+    font-size:14px;
+    margin-bottom:5px;
+}
+
+.continue-info small{
+    color:#999;
+    font-size:11px;
+}
+
+.progress{
+    width:100%;
+    height:4px;
+    background:#30333c;
+    margin:9px 0 5px;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.progress div{
+    height:100%;
+    background:#ff2d55;
+}
+
+
+/* MY LIST */
+
+.favorite-poster{
+    position:relative;
+}
+
+.heart-btn{
+    position:absolute;
+    top:8px;
+    right:8px;
+    width:35px;
+    height:35px;
+    border:0;
+    border-radius:50%;
+    background:rgba(0,0,0,.7);
+    color:white;
+    cursor:pointer;
+}
+    
 </style>
 </head>
 
@@ -410,7 +477,139 @@ header{
         </a>
     </div>
 </section>
+<!-- CONTINUE WATCHING -->
+<section class="section">
 
+    <div class="section-title">
+        <h2>▶️ Continue Watching</h2>
+        <span class="see-all">See All</span>
+    </div>
+
+    <div class="horizontal">
+
+        <div class="continue-card" onclick="continueAnime('Anime Legend')">
+            <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80">
+
+            <div class="continue-info">
+                <strong>Anime Legend</strong>
+                <small>Episode 12</small>
+
+                <div class="progress">
+                    <div style="width:65%"></div>
+                </div>
+
+                <small>65% watched</small>
+            </div>
+        </div>
+
+        <div class="continue-card" onclick="continueAnime('Shadow World')">
+            <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=600&q=80">
+
+            <div class="continue-info">
+                <strong>Shadow World</strong>
+                <small>Episode 08</small>
+
+                <div class="progress">
+                    <div style="width:40%"></div>
+                </div>
+
+                <small>40% watched</small>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- MY LIST -->
+<section class="section">
+
+    <div class="section-title">
+        <h2>❤️ My List</h2>
+        <span class="see-all">See All</span>
+    </div>
+
+    <div class="horizontal">
+
+        <div class="card" onclick="openAnime('My Favorite Anime')">
+
+            <div class="favorite-poster">
+
+                <img class="poster"
+                src="https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?auto=format&fit=crop&w=500&q=80">
+
+                <button class="heart-btn"
+                onclick="removeFavorite(event,'My Favorite Anime')">
+                    ❤️
+                </button>
+
+            </div>
+
+            <div class="card-info">
+                <div class="card-title">My Favorite Anime</div>
+                <div class="card-sub">12 Episodes</div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- RECENTLY UPDATED -->
+<section class="section">
+
+    <div class="section-title">
+        <h2>🆕 Recently Updated</h2>
+        <span class="see-all">See All</span>
+    </div>
+
+    <div class="horizontal">
+
+        <div class="card" onclick="openAnime('New Anime 01')">
+
+            <img class="poster"
+            src="https://images.unsplash.com/photo-1535016120720-40c646be5580?auto=format&fit=crop&w=500&q=80">
+
+            <div class="card-info">
+
+                <div class="card-title">
+                    New Anime 01
+                </div>
+
+                <div class="card-sub">
+                    New Episode • Today
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card" onclick="openAnime('New Anime 02')">
+
+            <img class="poster"
+            src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=500&q=80">
+
+            <div class="card-info">
+
+                <div class="card-title">
+                    New Anime 02
+                </div>
+
+                <div class="card-sub">
+                    New Episode • Today
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 <!-- TRENDING ANIME -->
 <section class="section">
 
@@ -665,6 +864,22 @@ function showSection(section){
         });
     }
 }
+function continueAnime(name){
+
+    alert("Continue watching: " + name);
+
+}
+
+
+function removeFavorite(event,name){
+
+    event.stopPropagation();
+
+    alert(name + " removed from My List.");
+
+}
+
+
 </script>
 
 </body>
