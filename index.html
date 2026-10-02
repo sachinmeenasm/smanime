@@ -98,6 +98,34 @@ header{
     font-weight:bold;
 }
 
+/* TOP MENU */
+.top-menu{
+    display:flex;
+    gap:10px;
+    padding:12px 15px;
+    overflow-x:auto;
+    background:#0b0d12;
+    scrollbar-width:none;
+}
+
+.top-menu::-webkit-scrollbar{
+    display:none;
+}
+
+.top-menu button{
+    border:1px solid #292d38;
+    background:#171a22;
+    color:#fff;
+    padding:9px 16px;
+    border-radius:22px;
+    white-space:nowrap;
+    font-size:13px;
+}
+
+.top-menu button:hover{
+    background:#ff2d55;
+}
+    
 /* SECTION */
 .section{
     padding:8px 15px;
@@ -294,7 +322,13 @@ header{
 <div class="search-box" id="searchBox">
     <input type="text" placeholder="Search anime..." id="searchInput">
 </div>
-
+<!-- TOP MENU -->
+<div class="top-menu">
+    <button onclick="showSection('home')">🏠 Home</button>
+    <button onclick="showSection('series')">📺 Series</button>
+    <button onclick="showSection('movies')">🎬 Movies</button>
+    <button onclick="showSection('schedule')">📅 Schedule</button>
+</div>
 <!-- HERO -->
 <section class="hero">
     <div class="hero-content">
@@ -494,7 +528,28 @@ function goHome(){
     });
 
 }
+function showSection(section){
+    if(section === "home"){
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+    }
 
+    if(section === "series"){
+        alert("Series section will be connected next.");
+    }
+
+    if(section === "movies"){
+        alert("Movies section will be connected next.");
+    }
+
+    if(section === "schedule"){
+        document.querySelector(".schedule").scrollIntoView({
+            behavior:"smooth"
+        });
+    }
+}
 </script>
 
 </body>
