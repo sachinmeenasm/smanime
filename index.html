@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SMANIME - Anime Streaming</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#0b0d12;
+    color:#fff;
+    font-family:Arial,sans-serif;
+    padding-bottom:75px;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+/* HEADER */
+header{
+    height:65px;
+    background:#11141b;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 18px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    border-bottom:1px solid #252936;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.logo span{
+    color:#ff2d55;
+}
+
+.header-icons{
+    display:flex;
+    gap:16px;
+    font-size:21px;
+}
+
+.icon{
+    cursor:pointer;
+}
+
+/* HERO */
+.hero{
+    margin:15px;
+    height:260px;
+    border-radius:18px;
+    overflow:hidden;
+    position:relative;
+    background:
+      linear-gradient(90deg,rgba(0,0,0,.9),rgba(0,0,0,.25)),
+      url("https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1200&q=80")
+      center/cover;
+}
+
+.hero-content{
+    position:absolute;
+    left:20px;
+    bottom:22px;
+    max-width:80%;
+}
+
+.hero h1{
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+.hero p{
+    color:#ccc;
+    font-size:13px;
+    margin-bottom:15px;
+}
+
+.watch-btn{
+    display:inline-block;
+    background:#ff2d55;
+    padding:11px 20px;
+    border-radius:25px;
+    font-weight:bold;
+}
+
+/* SECTION */
+.section{
+    padding:8px 15px;
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:18px 0 12px;
+}
+
+.section-title h2{
+    font-size:20px;
+}
+
+.see-all{
+    color:#ff2d55;
+    font-size:13px;
+}
+
+/* HORIZONTAL CARDS */
+.horizontal{
+    display:flex;
+    gap:12px;
+    overflow-x:auto;
+    scrollbar-width:none;
+}
+
+.horizontal::-webkit-scrollbar{
+    display:none;
+}
+
+.card{
+    min-width:145px;
+    background:#141720;
+    border-radius:12px;
+    overflow:hidden;
+    border:1px solid #242733;
+}
+
+.poster{
+    height:190px;
+    width:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.card-info{
+    padding:9px;
+}
+
+.card-title{
+    font-size:14px;
+    font-weight:bold;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.card-sub{
+    color:#888;
+    font-size:11px;
+    margin-top:5px;
+}
+
+/* GENRES */
+.genres{
+    display:flex;
+    gap:9px;
+    overflow-x:auto;
+    scrollbar-width:none;
+}
+
+.genre{
+    background:#191c25;
+    border:1px solid #2b2f3a;
+    padding:9px 15px;
+    border-radius:20px;
+    white-space:nowrap;
+    font-size:13px;
+}
+
+/* SCHEDULE */
+.schedule{
+    background:#141720;
+    border-radius:13px;
+    padding:13px;
+}
+
+.schedule-item{
+    display:flex;
+    justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px solid #292c35;
+}
+
+.schedule-item:last-child{
+    border-bottom:none;
+}
+
+.time{
+    color:#ff2d55;
+    font-weight:bold;
+}
+
+/* BOTTOM NAV */
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:65px;
+    background:#11141b;
+    border-top:1px solid #292c35;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:2000;
+}
+
+.nav-item{
+    text-align:center;
+    color:#888;
+    font-size:11px;
+}
+
+.nav-item .nav-icon{
+    font-size:20px;
+    margin-bottom:4px;
+}
+
+.nav-item.active{
+    color:#ff2d55;
+}
+
+/* SEARCH */
+.search-box{
+    display:none;
+    padding:10px 15px;
+    background:#11141b;
+}
+
+.search-box input{
+    width:100%;
+    padding:12px 15px;
+    border:0;
+    outline:0;
+    border-radius:25px;
+    background:#222630;
+    color:white;
+}
+
+/* DESKTOP */
+@media(min-width:700px){
+
+    .hero{
+        height:380px;
+        max-width:1100px;
+        margin:20px auto;
+    }
+
+    .section{
+        max-width:1100px;
+        margin:auto;
+    }
+
+    .card{
+        min-width:180px;
+    }
+
+    .poster{
+        height:240px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="logo">
+        <span>SM</span>ANIME
+    </div>
+
+    <div class="header-icons">
+        <div class="icon" onclick="toggleSearch()">🔍</div>
+        <div class="icon">☰</div>
+    </div>
+</header>
+
+<!-- SEARCH -->
+<div class="search-box" id="searchBox">
+    <input type="text" placeholder="Search anime..." id="searchInput">
+</div>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Anime World</h1>
+        <p>
+            Watch your favorite anime series, movies and latest episodes.
+        </p>
+
+        <a href="#" class="watch-btn" onclick="startWatching()">
+            ▶ Watch Now
+        </a>
+    </div>
+</section>
+
+<!-- GENRES -->
+<section class="section">
+
+    <div class="section-title">
+        <h2>Genres</h2>
+    </div>
+
+    <div class="genres">
+        <div class="genre">Action</div>
+        <div class="genre">Adventure</div>
+        <div class="genre">Comedy</div>
+        <div class="genre">Fantasy</div>
+        <div class="genre">Romance</div>
+        <div class="genre">School</div>
+        <div class="genre">Sports</div>
+    </div>
+
+</section>
+
+<!-- LATEST -->
+<section class="section">
+
+    <div class="section-title">
+        <h2>🔥 Latest Anime</h2>
+        <span class="see-all">See All</span>
+    </div>
+
+    <div class="horizontal">
+
+        <div class="card" onclick="openAnime('Anime 01')">
+            <img class="poster"
+            src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=500&q=80">
+            <div class="card-info">
+                <div class="card-title">Anime 01</div>
+                <div class="card-sub">Episode 12</div>
+            </div>
+        </div>
+
+        <div class="card" onclick="openAnime('Anime 02')">
+            <img class="poster"
+            src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=500&q=80">
+            <div class="card-info">
+                <div class="card-title">Anime 02</div>
+                <div class="card-sub">Episode 08</div>
+            </div>
+        </div>
+
+        <div class="card" onclick="openAnime('Anime 03')">
+            <img class="poster"
+            src="https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?auto=format&fit=crop&w=500&q=80">
+            <div class="card-info">
+                <div class="card-title">Anime 03</div>
+                <div class="card-sub">Episode 05</div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- MOST WATCHED -->
+<section class="section">
+
+    <div class="section-title">
+        <h2>👑 Most Watched</h2>
+        <span class="see-all">See All</span>
+    </div>
+
+    <div class="horizontal">
+
+        <div class="card">
+            <img class="poster"
+            src="https://images.unsplash.com/photo-1535016120720-40c646be5580?auto=format&fit=crop&w=500&q=80">
+
+            <div class="card-info">
+                <div class="card-title">Popular Anime</div>
+                <div class="card-sub">24 Episodes</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="poster"
+            src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=500&q=80">
+
+            <div class="card-info">
+                <div class="card-title">Adventure</div>
+                <div class="card-sub">12 Episodes</div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- SCHEDULE -->
+<section class="section">
+
+    <div class="section-title">
+        <h2>📅 Schedule</h2>
+    </div>
+
+    <div class="schedule">
+
+        <div class="schedule-item">
+            <span>Anime Episode 01</span>
+            <span class="time">Today</span>
+        </div>
+
+        <div class="schedule-item">
+            <span>Anime Episode 02</span>
+            <span class="time">Tomorrow</span>
+        </div>
+
+        <div class="schedule-item">
+            <span>Anime Episode 03</span>
+            <span class="time">Friday</span>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+
+    <div class="nav-item active" onclick="goHome()">
+        <div class="nav-icon">⌂</div>
+        Home
+    </div>
+
+    <div class="nav-item" onclick="toggleSearch()">
+        <div class="nav-icon">🔍</div>
+        Search
+    </div>
+
+    <div class="nav-item">
+        <div class="nav-icon">📺</div>
+        Series
+    </div>
+
+    <div class="nav-item">
+        <div class="nav-icon">🎬</div>
+        Movies
+    </div>
+
+    <div class="nav-item">
+        <div class="nav-icon">📅</div>
+        Schedule
+    </div>
+
+</nav>
+
+<script>
+
+function toggleSearch(){
+
+    const box = document.getElementById("searchBox");
+
+    if(box.style.display === "block"){
+        box.style.display = "none";
+    }else{
+        box.style.display = "block";
+        document.getElementById("searchInput").focus();
+    }
+}
+
+function startWatching(){
+
+    alert("Watch system will be connected in the next step.");
+}
+
+function openAnime(name){
+
+    alert(name + " will open in the anime player.");
+
+}
+
+function goHome(){
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+</script>
+
+</body>
+      </html>
