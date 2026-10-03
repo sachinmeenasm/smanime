@@ -1161,7 +1161,7 @@ header{
 <div class="top-menu">
     <button onclick="showSection('home')">🏠 Home</button>
 <button onclick="openAllAnime('series')">📺 Series</button>
-    <button onclick="showSection('movies')">🎬 Movies</button>
+    <button onclick="openAllMovies()">🎬 Movies</button>
     <button onclick="showSection('schedule')">📅 Schedule</button>
 </div>
 
@@ -1618,10 +1618,10 @@ header{
     Series
     </div>
 
-    <div class="nav-item">
-        <div class="nav-icon">🎬</div>
-        Movies
-    </div>
+<div class="nav-item" onclick="openAllMovies()">
+    <div class="nav-icon">🎬</div>
+    Movies
+</div>
 
     <div class="nav-item">
         <div class="nav-icon">📅</div>
@@ -2164,6 +2164,156 @@ function filterAllAnime(type, button){
     });
 }
 
+
+/* =========================
+   ALL MOVIES PAGINATION
+========================= */
+
+let currentMoviePage = 1;
+
+const totalMoviePages = 25;
+
+const moviesPerPage = 18;
+
+
+function openAllMovies(){
+
+    currentMoviePage = 1;
+
+    document.getElementById("allMoviesPage").style.display = "block";
+
+    document.body.style.overflow = "hidden";
+
+    renderMovies();
+}
+
+
+function closeAllMovies(){
+
+    document.getElementById("allMoviesPage").style.display = "none";
+
+    document.body.style.overflow = "";
+}
+
+
+function renderMovies(){
+
+    const grid =
+        document.getElementById("moviesGrid");
+
+    const pageNumbers =
+        document.getElementById("moviePageNumbers");
+
+    grid.innerHTML = "";
+
+    /*
+       हर page पर 18 अलग movies
+       Page 1 = Movie 01-18
+       Page 2 = Movie 19-36
+       Page 3 = Movie 37-54
+       ...
+    */
+
+    const start =
+        (currentMoviePage - 1) *
+        moviesPerPage + 1;
+
+    const end =
+        start + moviesPerPage - 1;
+
+
+    for(let i = start; i <= end; i++){
+
+        const card =
+            document.createElement("div");
+
+        card.className = "movie-card";
+
+        card.innerHTML = `
+            <div class="movie-poster">
+                MOVIE ${String(i).padStart(2,"0")}
+            </div>
+
+            <strong>
+                Movie ${String(i).padStart(2,"0")}
+            </strong>
+
+            <small>
+                Anime Movie • HD
+            </small>
+        `;
+
+        grid.appendChild(card);
+    }
+
+
+    /* PAGE NUMBERS */
+
+    pageNumbers.innerHTML = "";
+
+    for(let page = 1; page <= totalMoviePages; page++){
+
+        const button =
+            document.createElement("div");
+
+        button.className =
+            "movie-page-number";
+
+        if(page === currentMoviePage){
+
+            button.classList.add("active");
+
+        }
+
+        button.textContent = page;
+
+        button.onclick = function(){
+
+            currentMoviePage = page;
+
+            renderMovies();
+
+            document
+                .getElementById("allMoviesPage")
+                .scrollTop = 0;
+        };
+
+        pageNumbers.appendChild(button);
+    }
+
+}
+
+
+function nextMoviePage(){
+
+    if(currentMoviePage < totalMoviePages){
+
+        currentMoviePage++;
+
+        renderMovies();
+
+        document
+            .getElementById("allMoviesPage")
+            .scrollTop = 0;
+    }
+
+}
+
+
+function previousMoviePage(){
+
+    if(currentMoviePage > 1){
+
+        currentMoviePage--;
+
+        renderMovies();
+
+        document
+            .getElementById("allMoviesPage")
+            .scrollTop = 0;
+    }
+
+}
     
 </script>
 
