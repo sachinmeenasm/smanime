@@ -1115,6 +1115,41 @@ header{
 }
 
 
+.series-pagination{
+    max-width:1000px;
+    margin:30px auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    flex-wrap:wrap;
+}
+
+.series-pagination > button,
+.series-pagination .movie-page-number{
+    min-width:40px;
+    height:40px;
+    border:1px solid #303542;
+    background:#151821;
+    color:white;
+    border-radius:9px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+}
+
+.series-pagination > button:hover,
+.series-pagination .movie-page-number:hover{
+    background:#ff2d55;
+}
+
+.series-pagination .movie-page-number.active{
+    background:#ff2d55;
+    border-color:#ff2d55;
+}
+    
+
     
 </style>
 </head>
@@ -2104,10 +2139,18 @@ function openAllAnime(type = "all"){
     });
 
     if(type === "series"){
-        filterAllAnime(
-            "series",
-            document.querySelectorAll(".all-tab")[1]
-        );
+
+    document.querySelectorAll(".all-tab").forEach(function(tab){
+        tab.classList.remove("active");
+    });
+
+    document
+        .querySelectorAll(".all-tab")[1]
+        .classList.add("active");
+
+    currentSeriesPage = 1;
+
+    renderSeries();
     }
     else if(type === "movie"){
         filterAllAnime(
@@ -2134,6 +2177,11 @@ function closeAllAnime(){
 
 function filterAllAnime(type, button){
 
+    if(type === "movie"){
+        openAllMovies();
+        return;
+    }
+
     document.querySelectorAll(".all-tab").forEach(function(tab){
         tab.classList.remove("active");
     });
@@ -2153,6 +2201,7 @@ function filterAllAnime(type, button){
         }
 
     });
+
 }
 
 
@@ -2299,6 +2348,136 @@ function previousMoviePage(){
     }
 
 }
+
+
+let currentSeriesPage = 1;
+
+const totalSeriesPages = 6;
+
+const seriesPerPage = 8;
+
+const totalSeries = 45;
+
+
+function renderSeries(){
+
+    const grid =
+        document.getElementById("allAnimeGrid");
+
+    const pageNumbers =
+        document.getElementById("seriesPageNumbers");
+
+    grid.innerHTML = "";
+
+    const start =
+        (currentSeriesPage - 1) *
+        seriesPerPage + 1;
+
+    const end =
+        Math.min(
+            start + seriesPerPage - 1,
+            totalSeries
+        );
+
+
+    for(let i = start; i <= end; i++){
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "all-anime-card";
+
+        card.innerHTML = `
+            <div class="all-anime-poster">
+                ANIME ${String(i).padStart(2,"0")}
+            </div>
+
+            <strong>
+                Anime ${String(i).padStart(2,"0")}
+            </strong>
+
+            <small>
+                Series • HD
+            </small>
+        `;
+
+        card.onclick = function(){
+
+            openAnime(
+                "Anime " +
+                String(i).padStart(2,"0")
+            );
+
+        };
+
+        grid.appendChild(card);
+    }
+
+
+    pageNumbers.innerHTML = "";
+
+    for(let page = 1; page <= totalSeriesPages; page++){
+
+        const button =
+            document.createElement("div");
+
+        button.className =
+            "movie-page-number";
+
+        if(page === currentSeriesPage){
+            button.classList.add("active");
+        }
+
+        button.textContent = page;
+
+        button.onclick = function(){
+
+            currentSeriesPage = page;
+
+            renderSeries();
+
+            document
+                .getElementById("allAnimePage")
+                .scrollTop = 0;
+        };
+
+        pageNumbers.appendChild(button);
+    }
+
+}
+
+
+function nextSeriesPage(){
+
+    if(currentSeriesPage < totalSeriesPages){
+
+        currentSeriesPage++;
+
+        renderSeries();
+
+        document
+            .getElementById("allAnimePage")
+            .scrollTop = 0;
+    }
+
+}
+
+
+function previousSeriesPage(){
+
+    if(currentSeriesPage > 1){
+
+        currentSeriesPage--;
+
+        renderSeries();
+
+        document
+            .getElementById("allAnimePage")
+            .scrollTop = 0;
+    }
+
+}
     
 </script>
 
@@ -2338,65 +2517,14 @@ function previousMoviePage(){
     </div>
 
     <!-- ALL CARDS -->
-    <div id="allAnimeGrid" class="all-anime-grid">
+<div id="allAnimeGrid" class="all-anime-grid"></div>
 
-        <div class="all-anime-card"
-             data-type="series"
-             onclick="openAnime('Anime 01')">
+<div class="series-pagination">
+    <button onclick="previousSeriesPage()">←</button>
 
-            <div class="all-anime-poster">
-                ANIME 01
-            </div>
+    <div id="seriesPageNumbers"></div>
 
-            <strong>Anime 01</strong>
-            <small>Series • Episode 12</small>
-
-        </div>
-
-
-        <div class="all-anime-card"
-             data-type="series"
-             onclick="openAnime('Anime 02')">
-
-            <div class="all-anime-poster">
-                ANIME 02
-            </div>
-
-            <strong>Anime 02</strong>
-            <small>Series • Episode 08</small>
-
-        </div>
-
-
-        <div class="all-anime-card"
-             data-type="series"
-             onclick="openAnime('Anime 03')">
-
-            <div class="all-anime-poster">
-                ANIME 03
-            </div>
-
-            <strong>Anime 03</strong>
-            <small>Series • Episode 05</small>
-
-        </div>
-
-
-        <div class="all-anime-card"
-             data-type="movie"
-             onclick="openAnime('Anime Movie 01')">
-
-            <div class="all-anime-poster">
-                MOVIE 01
-            </div>
-
-            <strong>Anime Movie 01</strong>
-            <small>Movie • HD</small>
-
-        </div>
-
-    </div>
-
+    <button onclick="nextSeriesPage()">NEXT →</button>
 </div>
 
 <!-- ALL MOVIES PAGE -->
