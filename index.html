@@ -930,6 +930,200 @@ header{
         padding:9px 17px;
     }
     }
+
+
+/* =========================
+   ALL MOVIES PAGE
+========================= */
+
+.all-movies-page{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:5600;
+    background:#0b0d12;
+    color:white;
+    overflow-y:auto;
+    padding:20px 15px 100px;
+}
+
+.all-movies-header{
+    max-width:1000px;
+    margin:0 auto 25px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.all-movies-header h1{
+    margin:0;
+    font-size:26px;
+    font-weight:800;
+}
+
+.movies-back{
+    width:42px;
+    height:42px;
+    border:0;
+    border-radius:50%;
+    background:#1b1f29;
+    color:white;
+    font-size:23px;
+    cursor:pointer;
+}
+
+.movies-grid{
+    max-width:1000px;
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fill,minmax(150px,1fr));
+
+    gap:15px;
+}
+
+.movie-card{
+    background:#151821;
+    border:1px solid #292d38;
+    border-radius:14px;
+    padding:9px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.movie-card:hover{
+    transform:translateY(-4px);
+    border-color:#ff2d55;
+}
+
+.movie-poster{
+    height:215px;
+    border-radius:10px;
+    background:
+        linear-gradient(
+            135deg,
+            #202532,
+            #101218
+        );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+    font-size:18px;
+    font-weight:bold;
+
+    margin-bottom:10px;
+}
+
+.movie-card strong{
+    display:block;
+    font-size:14px;
+}
+
+.movie-card small{
+    display:block;
+    color:#999;
+    font-size:12px;
+    margin-top:5px;
+}
+
+/* PAGINATION */
+
+.movies-pagination{
+    max-width:1000px;
+    margin:30px auto 0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:7px;
+    flex-wrap:wrap;
+}
+
+.movies-pagination button{
+    border:1px solid #303542;
+    background:#151821;
+    color:white;
+
+    min-width:42px;
+    height:40px;
+
+    padding:0 12px;
+    border-radius:9px;
+
+    cursor:pointer;
+}
+
+.movies-pagination button:hover{
+    background:#ff2d55;
+    border-color:#ff2d55;
+}
+
+.movie-page-number{
+    min-width:40px;
+    height:40px;
+
+    border:1px solid #303542;
+    background:#151821;
+    color:#aaa;
+
+    border-radius:9px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+}
+
+.movie-page-number.active{
+    background:#ff2d55;
+    border-color:#ff2d55;
+    color:white;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    .all-movies-page{
+        padding:15px 10px 90px;
+    }
+
+    .movies-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+
+        gap:11px;
+    }
+
+    .movie-card{
+        padding:7px;
+    }
+
+    .movie-poster{
+        height:190px;
+    }
+
+    .movies-pagination{
+        gap:5px;
+    }
+
+    .movies-pagination button,
+    .movie-page-number{
+        min-width:36px;
+        height:36px;
+        font-size:12px;
+    }
+}
+
+
+
+
     
 </style>
 </head>
@@ -2069,5 +2263,40 @@ function filterAllAnime(type, button){
     </div>
 
 </div>
+
+<!-- ALL MOVIES PAGE -->
+<div id="allMoviesPage" class="all-movies-page">
+
+    <div class="all-movies-header">
+
+        <button class="movies-back"
+                onclick="closeAllMovies()">
+            ←
+        </button>
+
+        <h1>ALL MOVIES</h1>
+
+    </div>
+
+    <div id="moviesGrid" class="movies-grid"></div>
+
+    <div class="movies-pagination">
+
+        <button onclick="previousMoviePage()">
+            ←
+        </button>
+
+        <div id="moviePageNumbers"></div>
+
+        <button onclick="nextMoviePage()">
+            NEXT →
+        </button>
+
+    </div>
+
+</div>
+
+
+    
 </body>
       </html>
