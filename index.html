@@ -1035,11 +1035,9 @@ header{
 .movies-pagination{
     max-width:1000px;
     margin:30px auto 0;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     gap:7px;
     flex-wrap:wrap;
 }
@@ -1048,13 +1046,10 @@ header{
     border:1px solid #303542;
     background:#151821;
     color:white;
-
     min-width:42px;
     height:40px;
-
     padding:0 12px;
     border-radius:9px;
-
     cursor:pointer;
 }
 
@@ -1066,11 +1061,9 @@ header{
 .movie-page-number{
     min-width:40px;
     height:40px;
-
     border:1px solid #303542;
     background:#151821;
     color:#aaa;
-
     border-radius:9px;
 
     display:flex;
@@ -1086,6 +1079,7 @@ header{
     color:white;
 }
 
+
 /* MOBILE */
 
 @media(max-width:600px){
@@ -1095,9 +1089,7 @@ header{
     }
 
     .movies-grid{
-        grid-template-columns:
-            repeat(2,1fr);
-
+        grid-template-columns:repeat(2,1fr);
         gap:11px;
     }
 
@@ -1119,9 +1111,8 @@ header{
         height:36px;
         font-size:12px;
     }
+
 }
-
-
 
 
     
@@ -2260,9 +2251,7 @@ function renderMovies(){
             "movie-page-number";
 
         if(page === currentMoviePage){
-
             button.classList.add("active");
-
         }
 
         button.textContent = page;
@@ -2281,22 +2270,18 @@ function renderMovies(){
         pageNumbers.appendChild(button);
     }
 
-}
+    /* NEXT BUTTON */
 
+    const next =
+        document.createElement("button");
 
-function nextMoviePage(){
+    next.textContent = "NEXT →";
 
-    if(currentMoviePage < totalMoviePages){
+    next.onclick = function(){
+        nextMoviePage();
+    };
 
-        currentMoviePage++;
-
-        renderMovies();
-
-        document
-            .getElementById("allMoviesPage")
-            .scrollTop = 0;
-    }
-
+    pageNumbers.appendChild(next);
 }
 
 
